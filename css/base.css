@@ -1,0 +1,11 @@
+
+* {box-sizing: border-box;}
+
+
+h1 {font-size: 90px;
+text-align: center;
+padding: 30px;
+margin-top: 25px;
+margin: auto;
+opacity: .9;
+}
