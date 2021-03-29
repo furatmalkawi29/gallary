@@ -1,0 +1,33 @@
+main div  { border: 5px solid rgb(255, 255, 255);
+background-color: rgb(250, 90, 183);
+border-radius: 15px;}
+
+img {border: 2px solid rgb(255, 255, 255);}
+
+body {background-image: url(https://static.vecteezy.com/system/resources/previews/000/555/520/non_2x/seamless-purple-unicorn-pattern-vector-illustration.jpg);}
+
+
+h1 {background-color:rgb(159, 136, 199) ;
+font-weight: bolder;
+color: white;
+text-shadow: 3px 0px 4px rgb(41, 39, 39);
+font-family: 'New Tegomin', serif;}
+
+h2  {
+  color: white;
+text-shadow: 3px 0px 4px rgb(41, 39, 39);
+font-size: large;
+}
+
+footer {background-color:rgb(159, 136, 199) ;
+color: white;
+text-shadow: 3px 0px 4px rgb(41, 39, 39);
+text-align: center;
+height: 100px;
+line-height: 100px;}
+
+p{ font-family: 'Roboto', sans-serif;
+font-weight: bolder;}
+
+h1,footer,main div {box-shadow: 6px 6px 16px -5px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 6px 6px 16px -5px rgba(0,0,0,0.75);}

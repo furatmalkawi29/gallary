@@ -1,5 +1,6 @@
 @import 'reset.css';
+@import url('https://fonts.googleapis.com/css2?family=New+Tegomin&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
 @import 'base.css';
 @import 'layouts.css';
-@import 'theme.css';
 @import 'modules.css';
