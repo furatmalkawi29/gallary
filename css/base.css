@@ -9,3 +9,9 @@ margin-top: 25px;
 margin: auto;
 opacity: .9;
 }
+
+.divHide 
+{
+  background-color: chartreuse;
+  /* visibility: hidden; */
+}
