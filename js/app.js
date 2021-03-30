@@ -3,16 +3,16 @@
 // data from json-------------------------------------------------------
 
 $.ajax('./data/page-1.json')
-  .then(hornsData => {
-    //console.log(hornsData);
-    hornsData.forEach(val => {
-    //console.log(val);
-      let newHorn = new Horn (val);
-      newHorn.render();
+  .then(hornDataSet => {
+    //console.log(hornDataSet); // array of objects
+    hornDataSet.forEach(hornsObject => {
+    //console.log(hornsObject); // object
+      let newHorn = new Horn (hornsObject);
+      newHorn.renderHorn();
       newHorn.getKeywords();
     });
     renderSelect ();
-    $('#photo-template').first().remove();
+    // $('#photo-template').first().remove();
   });
 
 
@@ -24,36 +24,35 @@ function Horn (oneHorn) {
   this.hornDesc = oneHorn.description;
   this.hornNum = oneHorn.horns;
   this.hornKey = oneHorn.keyword;
-
 }
 
 Horn.keywordsArr =[];
 
-// render ------------------------------------------------------
-Horn.prototype.render = function () {
+// renderHorn ------------------------------------------------------
+Horn.prototype.renderHorn = function () {
 
-  let hornClone = $('#photo-template').first().clone();
-
-
-  hornClone.find('h2').text(this.hornTitle);
-
-  hornClone.find('p').text(this.hornDesc);
-
-  hornClone.find('img').attr('src',this.hornImage);
-
-  hornClone.find('h3').text(this.hornKey);
-
-  hornClone.find('h3').hide();
-
-  // console.log('hornClone',hornClone);
-
-  //console.log(this.hornTitle);
-  // console.log( hornClone.find('h2').html());
-
-  // console.log( hornClone.find('h2').text());
+  $('main').append(this.createTemplate());
+  //console.log(this.createTemplate());
+  $('main div p:last-child').hide();// hides <p>{{hornKey}}</p>
 
 
-  $('main').append(hornClone);
+};
+
+
+// mergeTemplate --------------------------
+
+Horn.prototype.createTemplate = function ()
+{
+
+  // gets string // html tags inside mustache <script>
+  let template = $('#hornTemplete').html();
+  // console.log('my mustache templete' , template);
+
+  //merges Horn object properties with html
+  // console.log(this);
+  let dataSet = Mustache.render(template,this);
+  // console.log(this);
+  return dataSet;
 
 };
 
@@ -63,30 +62,30 @@ Horn.prototype.getKeywords = function ()
 {
   let count = 0;
 
-  Horn.keywordsArr.push(this.hornKey);
+  Horn.keywordsArr.push(this);
 
   for (let i in Horn.keywordsArr)
   {
-    if (this.hornKey === Horn.keywordsArr[i])
+    if (this.hornKey === Horn.keywordsArr[i].hornKey)
       count++;
 
     if (count > 1)
       Horn.keywordsArr.pop();
   }
-  // console.log(Horn.keywordsArr);
-
+  //console.log(Horn.keywordsArr);
 };
-
 // render select -----------------------------------------
 
 function renderSelect ()
 {
   for (let i in Horn.keywordsArr)
   {
-    let optionClone = $('#option-template').first().clone();
-    optionClone.text(Horn.keywordsArr[i]);
-    optionClone.val(Horn.keywordsArr[i]);
-    $('select').append(optionClone);
+
+    let template = $('#optionTemplete').html();
+    let dataSet = Mustache.render(template,Horn.keywordsArr[i]);
+    
+    //console.log(Horn.keywordsArr[i]);
+    $('select').append(dataSet);
   }
 
 }
@@ -97,9 +96,13 @@ $('select').on('change',function(){
 
   $('main div').hide();
   $(`div:contains(${$(this).val()})`).show();
+  // selects the div that contains hornKey text that's equal option value
+  // using the hidden <p>{{hornKey}}</p> in the div 
 
 }
 );
+
+
 
 
 
